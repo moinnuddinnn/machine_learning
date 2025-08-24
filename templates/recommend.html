@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music Recommendations - Acousis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='recomm.css') }}">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">&times;</a>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="#">Music Recommendations</a>
+        <a href="#">Account</a>
+        <a href="#">Settings</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <span class="menu-btn" onclick="openSidebar()">&#9776;</span>
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Acousis Logo" class="logo">
+        <h1>Music Recommendations</h1>
+    </header>
+
+    <div class="container">
+        <div class="selection-card">
+            <h2>Select up to 3 artists:</h2>
+            <form method="POST" action="{{ url_for('recommend') }}">
+                {% for t in trending %}
+                <div class="artist-option">
+                    <input type="checkbox" name="seed_artist" value="{{ t.id }}" id="{{ t.id }}">
+                    <label for="{{ t.id }}">
+                        {% if t.images and t.images[0] %}
+                        <img src="{{ t.images[0].url }}" alt="{{ t.name }}" class="artist-thumb">
+                        {% endif %}
+                        {{ t.name }}
+                    </label>
+                </div>
+                {% endfor %}
+                <button type="submit">Get Recommendations</button>
+            </form>
+        </div>
+
+        {% if recommended_tracks %}
+        <div class="recommendation-card">
+            <h2>Recommended Artists</h2>
+            <ul class="artist-list">
+                {% for rec in recommended_tracks %}
+                <li>
+                    {% if rec.images and rec.images[0] %}
+                    <img src="{{ rec.images[0].url }}" alt="{{ rec.name }}" class="artist-thumb">
+                    {% endif %}
+                    <strong>{{ rec.name }}</strong>
+                    <small>({{ "{:,}".format(rec.followers.total) }} followers)</small><br>
+                    <a href="{{ rec.external_urls.spotify }}" target="_blank">Spotify Profile</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function openSidebar() {
+            document.getElementById("sidebar").style.width = "250px";
+        }
+        function closeSidebar() {
+            document.getElementById("sidebar").style.width = "0";
+        }
+    </script>
+</body>
+</html>
