@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascousis - Welcome</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='welcome.css') }}">
+</head>
+<body>
+    <div class="welcome-container">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <h1 class="logo">Ascousis</h1>
+            <div class="nav-buttons">
+                <a href="{{ url_for('login') }}" class="btn">Login</a>
+                <a href="{{ url_for('signup') }}" class="btn btn-primary">Signup</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="content">
+            <h2>Welcome to <span class="highlight">Ascousis</span></h2>
+            <p>
+                Our project turns Spotify data into powerful insights about artists, songs, and albums. By analyzing streams, listeners, followers, and track performance, we reveal trends, hidden hits, and growth patterns. Whether you’re a music fan exploring your favorite artists or a professional seeking actionable analytics, our platform makes it easy to discover, compare, and understand music like never before. It’s music data, transformed into meaningful, interactive insights.
+            </p>
+            <div class="cta-buttons">
+                <a href="{{ url_for('signup') }}" class="btn btn-primary">Get Started</a>
+                <a href="{{ url_for('login') }}" class="btn">Already have an account?</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
